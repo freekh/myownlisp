@@ -44,11 +44,7 @@ struct lval eval_op(struct lval x, char* op, struct lval y) {
   if (strcmp(op, "*") == 0) {
     return lval_num(x.num*y.num);
   } else if (strcmp(op, "/") == 0) {
-    if (y.num == 0) {
-      return lval_err(LERR_DIV_ZERO);
-    } else {
-      return lval_num(x.num/y.num);
-    }
+    return y.num == 0 ? lval_err(LERR_DIV_ZERO) : lval_num(x.num/y.num);
   } else if (strcmp(op, "+") == 0) {
     return lval_num(x.num+y.num);
   } else if (strcmp(op, "-") == 0) {
