@@ -3,6 +3,19 @@
 
 #include "mpc/mpc.h"
 
-long eval(mpc_ast_t* t);
+struct lval {
+  int type;
+  long num;
+  int err;
+};
+
+// lval types
+enum { LVAL_NUM, LVAL_ERR };
+
+// lval errors
+enum { LERR_DIV_ZERO, LERR_BAD_OP, LERR_BAD_NUM };
+
+struct lval eval(mpc_ast_t* t);
+void lval_print(struct lval v);
 
 #endif

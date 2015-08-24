@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Frispy, &r)) {
       /* mpc_ast_print(r.output); */
-      long result = eval(r.output);
-      printf("%li\n", result);
+      struct lval v = eval(r.output);
+      lval_print(v);
       mpc_ast_delete(r.output);
     } else {
       mpc_err_print(r.error);
