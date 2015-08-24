@@ -2,8 +2,12 @@
 #include <stdlib.h>
 
 #include <editline/readline.h>
+#include <string.h>
 #include "mpc/mpc.h"
 #include "eval.h"
+
+#define HISTORY ".frispy-history"
+
 
 int main(int argc, char** argv) {
   mpc_parser_t* Number = mpc_new("number");
@@ -23,15 +27,17 @@ int main(int argc, char** argv) {
 
   puts("Frispy version 0.1");
   puts("Press ctrl+c to exit");
-  int finished = 0;
-  while (!finished) {
-    char* input = readline("frispy> ");
+
+  char *prompt = "frispy> ";
+  char *input;
+
+  read_history(HISTORY);
+  while ((input = readline(prompt)) != NULL) {
     add_history(input);
     
     //
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Frispy, &r)) {
-      /* mpc_ast_print(r.output); */
       struct lval v = eval(r.output);
       lval_print(v);
       mpc_ast_delete(r.output);
@@ -42,6 +48,8 @@ int main(int argc, char** argv) {
     //
     free(input);
   }
+  write_history(HISTORY);
+
   mpc_cleanup(4, Number, Operator, Expr, Frispy);
  
   return 0;

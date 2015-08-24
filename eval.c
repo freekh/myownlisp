@@ -62,7 +62,7 @@ struct lval eval(mpc_ast_t* t) {
   if (strstr(t->tag, "number")) {
     return lval_num(atoi(t->contents));
   }
-  char* op = t->children[1]->contents;
+  char *op = t->children[1]->contents;
   struct lval v = eval(t->children[2]);
   int i = 3;
   while (t->children_num > 2 && strstr(t->children[i]->tag, "expr")) {
