@@ -1,14 +1,23 @@
-CC=cc
-LIBS=-ledit -lm
-ODIR=target
-IDIR=.
-CFLAGS=-I$(IDIR) -g -Wall -std=c99 
+CC = cc
+ODIR = target
+IDIR = .
+CFLAGS = -I$(IDIR) -g -Wall -std=c99 
+
+###
+
+LIBS = -ledit -lm
+
+###
 
 _DEPS = mpc/mpc.c
-DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
-
 _OBJ = eval.o prompt.o
+
+###
+
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+###
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
