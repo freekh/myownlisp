@@ -117,7 +117,7 @@ void lval_println(struct lval* v) { lval_print(v); putchar('\n'); }
 
 struct lval* lval_pop(struct lval* v, int i) {
   struct lval* x = v->cell[i];
-  memmove(&v->cell[i], &v->cell[i + 1], sizeof(struct lval*) * (v->count - i + 1));
+  memmove(&v->cell[i], &v->cell[i + 1], sizeof(struct lval*) * (v->count - i - 1));
 
   v->count--;
 

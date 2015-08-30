@@ -23,7 +23,7 @@ struct lval* builtin_op(struct lval* v, char* op) {
     if (strcmp(op, "/") == 0) {
       if (y->num == 0) {
         lval_del(x); lval_del(y);
-        x = lval_err("Division By Zero!"); break;
+        x = lval_err("division by zero!"); break;
       }
       x->num /= y->num;
     }
