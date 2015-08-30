@@ -10,7 +10,7 @@ LIBS = -ledit -lm
 ###
 
 _DEPS = mpc/mpc.c
-_OBJ = eval.o prompt.o
+_OBJ = sexpr.o prompt.o builtin_op.o
 
 ###
 

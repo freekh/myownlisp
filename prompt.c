@@ -4,7 +4,7 @@
 #include <editline/readline.h>
 #include <string.h>
 #include "mpc/mpc.h"
-#include "eval.h"
+#include "sexpr.h"
 
 #define HISTORY ".frispy-history"
 
@@ -40,8 +40,9 @@ int main(int argc, char** argv) {
     //
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Frispy, &r)) {
-      struct lval v = eval(r.output);
-      lval_print(v);
+      struct lval* v = lval_eval(lval_read(r.output));
+      lval_println(v);
+      lval_del(v);
       mpc_ast_delete(r.output);
     } else {
       mpc_err_print(r.error);
