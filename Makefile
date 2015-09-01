@@ -5,7 +5,7 @@ CFLAGS = -I$(IDIR) -g -Wall -std=c99
 
 ###
 
-LIBS = -ledit -lm
+LDFLAGS = -ledit -lm
 
 ###
 
@@ -23,7 +23,7 @@ $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 frispy: $(OBJ)
-	$(CC) $(DEPS) -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) $(DEPS) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean
 
