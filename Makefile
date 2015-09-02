@@ -21,11 +21,13 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 frispy: $(OBJ)
 	$(CC) $(DEPS) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
-$(ODIR):
-	mkdir -p $(ODIR)
-
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(OBJ): | $(ODIR)
+
+$(ODIR):
+	mkdir -p $(ODIR)
 
 .PHONY: clean
 
