@@ -18,17 +18,19 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 ###
+frispy: $(OBJ)
+	$(CC) $(DEPS) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+$(ODIR):
+	mkdir -p $(ODIR)
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-frispy: $(OBJ)
-	$(CC) $(DEPS) -o $@ $^ $(CFLAGS) $(LDFLAGS)
-
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 
+	rm -rf $(ODIR) *~ $(INCDIR)/*~ 
 
 clean-all: clean
 	rm -rf frispy frispy.dSYM
